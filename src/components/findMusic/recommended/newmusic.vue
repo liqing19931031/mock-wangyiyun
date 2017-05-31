@@ -47,13 +47,9 @@ export default {
     }
   },
   mounted () {
-    this.ajax({
-      method: 'get',
-      url: 'newmusic',
-      async: true,
-      callBack: (data) => {
-        this.dataList = data.result
-      }
+    this.$http('get', 'newmusic')
+    .then((data) => {
+      this.dataList = data.result
     })
   }
 }

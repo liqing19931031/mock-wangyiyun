@@ -7,10 +7,19 @@ import ElementUI from 'element-ui'
 import ajax from './asyncAjax'
 import 'element-ui/lib/theme-default/index.css'
 
+const baseIp = 'http://10.0.92.15:3000/'
+let $http = function (method, url, data) {
+  return ajax({
+    method: method,
+    url: baseIp + url,
+    data: data,
+    async: true
+  })
+}
 Vue.use(ElementUI)
 Vue.config.productionTip = false
-Vue.prototype.ajax = ajax
-Vue.prototype.imgUrl = 'http://localhost:3000/images/'
+Vue.prototype.$http = $http
+Vue.prototype.imgUrl = baseIp + 'images/'
 
 /* eslint-disable no-new */
 new Vue({

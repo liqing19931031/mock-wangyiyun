@@ -46,9 +46,11 @@ export default {
     color: #333;
     float: left;
     line-height: 44px;
-    border-bottom: 3px solid white;
+    padding-bottom: 2px;
+    border-bottom: 1px solid #dfdfe1;
     &.router-link-active{
       color: @themeDark;
+      padding-bottom: 0;
       border-bottom: 3px solid @themeDark;
     }
   }

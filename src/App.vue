@@ -6,6 +6,22 @@
           <input type="text" name="" value="" placeholder='搜索音乐，歌手，歌词，用户'>
           <i class="glyphicon glyphicon-search"></i>
         </div>
+        <div class="set">
+          <i class="glyphicon glyphicon-mini"></i>
+          <i class="glyphicon glyphicon-tosmall"></i>
+          <i class="glyphicon glyphicon-tobig"></i>
+          <i class="glyphicon glyphicon-close"></i>
+        </div>
+        <div class="message">
+          <i class="glyphicon glyphicon-theme"></i>
+          <i class="glyphicon glyphicon-message"></i>
+          <i class="glyphicon glyphicon-setting"></i>
+        </div>
+        <div class="avantar">
+          {{this.user.name}}
+          <i class="glyphicon glyphicon-downdrop"></i>
+        </div>
+        <img v-if='this.user.avantar' :src="this.imgUrl + this.user.avantar" alt="">
     </header>
     <div class="mainbody clearfix">
       <leftNav></leftNav>
@@ -22,6 +38,22 @@ import leftNav from '@/components/widget/left-nav'
 
 export default {
   name: 'app',
+  data () {
+    return {
+       user: {
+       }
+    }
+  },
+  mounted () { // promise then 的链式调用
+    this.$http('get', 'user', {id: 2})
+    .then((data) => {
+      this.user = data
+      return this.$http('get', 'newmusic', {id: 1}) // 返回一个promise实例可以依赖第一次返回的数据进行二次异步请求
+    })
+    .then((data) => {
+      console.log(2, data)
+    })
+  },
   components: {
     leftNav
   }
@@ -35,6 +67,7 @@ export default {
 html,body{
   margin: 0;
   padding: 0;
+  font-family: '宋体'
 }
 
 // 音符动画
@@ -44,6 +77,16 @@ html,body{
   to {transform: rotate(360deg)}
 }
 
+::-webkit-scrollbar{
+  width: 10px;
+}
+::-webkit-scrollbar-thumb{
+  border-radius: 10px;
+  background-color: #e1e1e1;
+}
+::-webkit-scrollbar-thumb:hover{
+  background-color: #ccc;
+}
 header{
   height: 50px;
   color: white;
@@ -54,6 +97,45 @@ header{
     display: inline-block;
     font-size: 16px;
     float: left;
+  }
+  .set,
+  .message{
+      float: right;
+      font-size: 18px;
+      i{
+        cursor: pointer;
+        color: #c5e9d7;
+        &:hover{
+          color: white;
+        }
+      }
+  }
+  .message{
+    i{
+      margin-left: 15px;
+      &:nth-child(3) {
+        padding-right: 10px;
+        margin-right: 10px;
+        border-right: 1px solid #999;
+      }
+    }
+  }
+  .avantar{
+    float: right;
+    font-size: 12px;
+    color: #c5e9d7;
+    cursor: pointer;
+    &:hover{
+      color: white;
+    }
+  }
+  img{
+    float: right;
+    margin-right: 5px;
+    margin-top: 15px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
   }
   .search{
     float: left;

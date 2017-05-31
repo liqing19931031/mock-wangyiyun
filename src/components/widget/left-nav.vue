@@ -1,9 +1,26 @@
 <template lang="html">
   <div class="left-nav">
-    <div class="navs" v-for='nav in navs'>
-      <div style="padding-left: 10px">{{nav.name}}</div>
-      <div class="nav" v-for='item in nav.children'>
-        <router-link :to='item.route'><i class="glyphicon" :class="'glyphicon-' + item.icon"></i> &nbsp&nbsp{{item.name}}</router-link>
+    <div class="allnav">
+      <div class="navs" v-for='nav in navs'>
+        <div style="padding-left: 10px">{{nav.name}}</div>
+        <div class="nav" v-for='item in nav.children'>
+          <router-link :to='item.route'><i class="glyphicon" :class="'glyphicon-' + item.icon"></i> {{item.name}}</router-link>
+        </div>
+      </div>
+    </div>
+    <div class="playing">
+      <div class="pic">
+        <img :src='this.imgUrl + this.playing.pic' alt="">
+      </div>
+      <div class="right-content">
+        <div class="musicname">
+          {{this.playing.name}}
+          <i class="glyphicon glyphicon-like"></i>
+        </div>
+        <div class="singer">
+          {{this.playing.singer}}
+          <i class="glyphicon glyphicon-share"></i>
+        </div>
       </div>
     </div>
   </div>
@@ -44,8 +61,16 @@ export default {
             {name: '甜美欧美', route: '/13', icon: 'musiclist'}
           ]
         }
-      ]
+      ],
+      playing: {
+      }
     }
+  },
+  mounted () {
+    this.$http('get', 'newmusic', {id: 1})
+    .then((data) => {
+      this.playing = data.result
+    })
   }
 }
 </script>
@@ -57,12 +82,20 @@ export default {
   float: left;
   height: ~"calc(100vh - 100px)";
   width: 200px;
+  position: relative;
+  .allnav{
+    height:  ~"calc(100vh - 160px)";
+    overflow: auto;
+  }
   .navs{
     color: #999;
-    font-size: 14px;
+    font-size: 12px;
     line-height: 35px;
     .nav{
       line-height: 30px;
+      i{
+        font-size: 16px;
+      }
       a{
         color: #666;
         text-decoration: none;
@@ -81,8 +114,51 @@ export default {
       }
     }
   }
-  .navs + .navs{
-    margin-top: 10px;
+  .playing{
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    height: 60px;
+    color: #333;
+    border-top: 1px solid #dfdfe1;
+    .pic{
+      width: 60px;
+      float: left;
+      img{
+        width: 100%;
+        height: 100%;
+      }
+    }
+    .right-content{
+      width: 140px;
+      box-sizing: border-box;
+      padding:10px 8px;
+      float: left;
+      i{
+        padding-top: 2px;
+      }
+    }
+    .musicname{
+      width: 100%;
+      float: left;
+      font-size: 14px;
+      height: 20px;
+      i{
+        cursor: pointer;
+        float: right;
+      }
+    }
+    .singer{
+      width: 100%;
+      float: left;
+      height: 20px;
+      font-size: 12px;
+      i{
+        cursor: pointer;
+        float: right;
+        font-size: 14px;
+      }
+    }
   }
 }
 </style>
