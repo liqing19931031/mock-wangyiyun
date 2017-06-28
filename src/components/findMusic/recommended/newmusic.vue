@@ -10,7 +10,10 @@
             <div class="xuhao">
               {{index + 1 < 10 ? '0' + (index + 1) : (index + 1)}}
             </div>
-            <img :src="imgUrl + item.pic" alt="">
+            <div class="playing">
+              <img :src="imgUrl + item.pic" alt="">
+              <i class="glyphicon-play glyphicon"></i>
+            </div>
             <div class="musicname">
               {{item.name}}<span v-if='item.content'>({{item.content}})</span>
             </div>
@@ -24,7 +27,10 @@
             <div class="xuhao">
               {{index + 1 < 10 ? '0' + (index + 1) : (index + 1)}}
             </div>
-            <img :src="imgUrl + item.pic" alt="">
+            <div class="playing">
+              <img :src="imgUrl + item.pic" alt="">
+              <i class="glyphicon-play glyphicon"></i>
+            </div>
             <div class="musicname">
               {{item.name}}<span v-if='item.content'>({{item.content}})</span>
             </div>
@@ -89,6 +95,18 @@ export default {
             color: #888;
             font-size: 14px;
             float: left;
+          }
+          .playing{
+            cursor: pointer;
+            float: left;
+            position: relative;
+            i{
+              color: white;
+              font-size: 20px;
+              position: absolute;
+              top: 10px;
+              left: 25px;
+            }
           }
           .musicname{
             font-size: 14px;

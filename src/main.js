@@ -7,7 +7,7 @@ import ElementUI from 'element-ui'
 import ajax from './asyncAjax'
 import 'element-ui/lib/theme-default/index.css'
 
-const baseIp = 'http://10.0.92.15:3000/'
+const baseIp = 'http://10.0.92.41:3000/'
 let $http = function (method, url, data) {
   return ajax({
     method: method,

@@ -1,10 +1,8 @@
 <template lang="html">
   <div class="recommended">
     <slide :imgList='this.imgList' :autoplay='true' style='margin-top: 20px'></slide>
-    <musicList></musicList>
-    <exclusive></exclusive>
-    <newmusic></newmusic>
-    <aboutmv></aboutmv>
+    <div v-for='item in menu' :is='item.key'>
+    </div>
     <div class="setting">
         现在根据个人喜好，自由调整首页栏目顺序啦~
         <el-button class='btn' type="text" @click="dialogVisible = true">调整栏目顺序</el-button>
@@ -14,15 +12,27 @@
     :visible.sync="dialogVisible"
     size="tiny"
     :before-close="handleClose">
-    <span>想调整首页栏目的顺序？按住右边的按钮拖动即可</span>
+    <span class="tip">想调整首页栏目的顺序？按住右边的按钮拖动即可</span>
     <div class="taglist">
-      <div class="tag" v-for='tag in menu'>
-        {{tag}}
+      <draggable :list="menu">
+        <transition-group>
+          <div class="tag noselect" v-for='tag in menu' :key='tag.key'>
+            <div class="pull-left">
+              {{tag.value}}
+            </div>
+            <div class="pull-right">
+              <i class="glyphicon-menu glyphicon"></i>
+            </div>
+          </div>
+        </transition-group>
+      </draggable>
+      <div class="paixu">
+        <a href='#'>恢复默认排序</a>
       </div>
     </div>
     <span slot="footer" class="dialog-footer">
-      <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
-      <el-button @click="dialogVisible = false">取 消</el-button>
+      <el-button class='el-button--small' type="primary" @click="dialogVisible = false">确 定</el-button>
+      <el-button class='el-button--small' @click="dialogVisible = false">取 消</el-button>
     </span>
   </el-dialog>
   </div>
@@ -34,6 +44,7 @@ import musicList from './recommended/musicList'
 import exclusive from './recommended/exclusive'
 import newmusic from './recommended/newmusic'
 import aboutmv from './recommended/aboutmv'
+import draggable from 'vuedraggable'
 
 export default {
   data () {
@@ -49,12 +60,12 @@ export default {
         './static/slide7.jpg',
         './static/slide8.jpg'
       ],
-      menu: {
-        musicList: '推荐歌单',
-        exclusive: '独家放送',
-        newmusic: '最新音乐',
-        aboutmv: '推荐MV'
-      }
+      menu: [
+        {key: 'musicList', value: '推荐歌单'},
+        {key: 'exclusive', value: '独家放送'},
+        {key: 'newmusic', value: '最新音乐'},
+        {key: 'aboutmv', value: '推荐MV'}
+      ]
     }
   },
   components: {
@@ -62,7 +73,8 @@ export default {
     musicList,
     exclusive,
     newmusic,
-    aboutmv
+    aboutmv,
+    draggable
   },
   methods: {
     handleClose (done) {
@@ -74,31 +86,34 @@ export default {
 
 <style lang="less">
 @import '../../less/var.less';
-.el-dialog{
-  .el-dialog__header{
-    padding: 15px;
-    border-bottom: 1px solid #dfdfe1;
-  }
-  .el-dialog__body{
-    span{
-      color: #888;
-    }
-  }
-  .el-dialog__footer{
-    text-align: center;
-  }
-}
+
+// .flip-list-move{
+//   transition: transform 1s;
+// }
 .recommended{
   width: 1040px;
   margin: 0 auto;
   .taglist{
     padding: 10px 10px;
+    padding-bottom: 0;
     font-size: 16px;
     color: #555;
     .tag{
       height: 50px;
       line-height: 50px;
-      border-bottom: 1px solid #dfdfe1;
+      cursor: pointer;
+      border-bottom: 1px solid #ededf9;
+      &:focus{
+        cursor: move;
+      }
+    }
+    .paixu{
+      text-align: center;
+      font-size: 12px;
+      line-height: 50px;
+      a{
+        color: #888;
+      }
     }
   }
   .setting{

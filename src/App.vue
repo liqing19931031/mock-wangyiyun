@@ -27,7 +27,6 @@
       <leftNav></leftNav>
       <router-view class="contain"></router-view>
       <div class="footer">
-
       </div>
     </div>
   </div>
@@ -48,10 +47,6 @@ export default {
     this.$http('get', 'user', {id: 2})
     .then((data) => {
       this.user = data
-      return this.$http('get', 'newmusic', {id: 1}) // 返回一个promise实例可以依赖第一次返回的数据进行二次异步请求
-    })
-    .then((data) => {
-      console.log(2, data)
     })
   },
   components: {
@@ -78,10 +73,10 @@ html,body{
 }
 
 ::-webkit-scrollbar{
-  width: 10px;
+  width: 5px;
 }
 ::-webkit-scrollbar-thumb{
-  border-radius: 10px;
+  border-radius: 5px;
   background-color: #e1e1e1;
 }
 ::-webkit-scrollbar-thumb:hover{
