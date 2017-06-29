@@ -73,10 +73,10 @@ html,body{
 }
 
 ::-webkit-scrollbar{
-  width: 5px;
+  width: 4px;
 }
 ::-webkit-scrollbar-thumb{
-  border-radius: 5px;
+  border-radius: 4px;
   background-color: #e1e1e1;
 }
 ::-webkit-scrollbar-thumb:hover{
