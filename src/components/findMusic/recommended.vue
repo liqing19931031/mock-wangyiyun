@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="recommended">
-    <slide :imgList='this.imgList' :autoplay='true' style='margin-top: 20px'></slide>
+    <slide v-if='this.imgList.length > 0' :imgList='this.imgList' :autoplay='true' style='margin-top: 20px'></slide>
     <div v-for='item in menu' :is='item.key'>
     </div>
     <div class="setting">
@@ -51,14 +51,6 @@ export default {
     return {
       dialogVisible: false,
       imgList: [
-        './static/slide1.jpg',
-        './static/slide2.jpg',
-        './static/slide3.jpg',
-        './static/slide4.jpg',
-        './static/slide5.jpg',
-        './static/slide6.jpg',
-        './static/slide7.jpg',
-        './static/slide8.jpg'
       ],
       menu: [
         {key: 'musicList', value: '推荐歌单'},
@@ -80,6 +72,12 @@ export default {
     handleClose (done) {
       done()
     }
+  },
+  mounted () {
+    this.$http('get', 'slides')
+    .then((data) => {
+      this.imgList = data.result
+    })
   }
 }
 </script>

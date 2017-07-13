@@ -2,7 +2,11 @@
   <div class="left-nav">
     <div class="allnav">
       <div class="navs" v-for='nav in navs'>
-        <div style="padding-left: 10px">{{nav.name}}</div>
+        <div style="padding:0 10px" class="clearfix">
+          <span>{{nav.name}}</span>
+          <i v-if='nav.name === "创建的歌单"' class="glyphicon glyphicon-add" @click='addPlaylist'></i>
+          <i v-if='nav.name === "创建的歌单"' class="glyphicon glyphicon-spread"></i>
+        </div>
         <div class="nav" v-for='item in nav.children'>
           <router-link :to='item.route'><i class="glyphicon" :class="'glyphicon-' + item.icon"></i> {{item.name}}</router-link>
         </div>
@@ -60,10 +64,22 @@ export default {
             {name: '怀旧', route: '/12', icon: 'musiclist'},
             {name: '甜美欧美', route: '/13', icon: 'musiclist'}
           ]
+        },
+        {
+          name: '收藏的歌单',
+          children: [
+            {name: '吴青峰', route: '/11', icon: 'musiclist'},
+            {name: '怀旧', route: '/12', icon: 'musiclist'},
+            {name: '甜美欧美', route: '/13', icon: 'musiclist'}
+          ]
         }
       ],
       playing: {
       }
+    }
+  },
+  methods: {
+    addPlaylist () {
     }
   },
   mounted () {
@@ -91,6 +107,15 @@ export default {
     color: #999;
     font-size: 12px;
     line-height: 35px;
+    div:nth-child(1){
+      text-align: right;
+      i{
+        cursor: pointer;
+      }
+      span{
+        float: left;
+      }
+    }
     .nav{
       line-height: 30px;
       i{

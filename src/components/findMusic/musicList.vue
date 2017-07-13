@@ -169,6 +169,7 @@ export default {
             line-height: 35px;
             box-sizing: border-box;
             cursor: pointer;
+            margin-bottom: -1px;
             text-align: center;
             border: 1px solid #f4f2f2;
             & + .one-tag{

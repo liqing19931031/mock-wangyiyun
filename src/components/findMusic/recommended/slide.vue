@@ -2,7 +2,7 @@
   <div class="slides">
     <div class="slide">
         <div class="imggroup" v-for='(item, index) in this.imgList' :class='imgClass(index)'>
-          <img :src="item" alt="">
+          <img :src="imgUrl + item.pic" alt="">
           <div class="imgblank">
 
           </div>
